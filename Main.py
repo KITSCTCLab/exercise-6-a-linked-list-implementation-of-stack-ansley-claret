@@ -4,48 +4,49 @@ class Node:
     self.next = None
 
 
-class Stack:
+class Queue:
   def __init__(self):
     self.head = None
+    self.last = None
 
-  def push(self, data) -> None:
+  def enqueue(self, data) -> None:
     # Write your code here
-    new = Node(data)
+    temp = Node(data)
     if self.head == None:
-      new.next = None
-      self.head = new
+      self.head = temp
+      self.last = temp
+      temp.next = None
     else:
-      new.next = self.head
-      self.head = new
+      self.last.next = temp
+      temp.next = None
+      self.last = temp
 
-  def pop(self) -> None:
+  def dequeue(self) -> None:
     # Write your code here
     if self.head == None:
       pass
     else:
       self.head = self.head.next
 
-  def status(self):
-    """
-    It prints all the elements of stack.
-    """
+  def status(self) -> None:
     # Write your code here
-    trav = self.head
-    while trav != None:
-      print(trav.data, "=>",sep = "", end = "")
-      trav = trav.next
+    temp = self.head
+    while temp!= None:
+      print(temp.data, "=>", sep="", end = "")
+      temp = temp.next
     print("None")
-    
+
+
 # Do not change the following code
-stack = Stack()
+queue = Queue()
 operations = []
 for specific_operation in input().split(','):
     operations.append(specific_operation.strip())
 input_data = input()
 data = input_data.split(',')
 for i in range(len(operations)):
-  if operations[i] == "push":
-    stack.push(int(data[i]))
-  elif operations[i] == "pop":
-    stack.pop()
-stack.status()
+  if operations[i] == "enqueue":
+    queue.enqueue(int(data[i]))
+  elif operations[i] == "dequeue":
+    queue.dequeue()
+queue.status()
